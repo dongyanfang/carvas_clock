@@ -1,0 +1,109 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>canvas画圆</title>
+<style type="text/css">
+	*{
+		margin:0;
+		padding:0;
+	}
+	body{
+		background:#000;
+	}
+	#box{
+		background:#fff;
+	}
+</style>
+<script>
+window.onload=function(){
+	var oC=document.getElementById("box");
+	var oGc=oC.getContext('2d');
+	
+
+	function toDraw(){
+		var oDate=new Date();
+		//alert(oDate);
+		var second=oDate.getSeconds();
+		var minute=oDate.getMinutes();
+		var hour=oDate.getHours();
+		oGc.clearRect(0,0,oC.width,oC.height);
+
+		var img=new Image();
+		img.src="1.jpg";
+		oGc.drawImage(img,1,1);
+
+		oGc.beginPath();//分钟时刻
+		for(var i=0;i<60;i++){
+			oGc.moveTo(195,240);
+			oGc.arc(195,240,70,i*6*Math.PI/180,(i+1)*6*Math.PI/180,false);
+			
+		}
+		oGc.closePath();
+		oGc.stroke();
+
+		oGc.fillStyle="#fcf"; 
+		oGc.beginPath();
+			oGc.moveTo(195,240);
+			oGc.arc(195,240,60,0,360*Math.PI/180,false);
+		oGc.closePath();
+		oGc.fill();
+
+		oGc.beginPath();					//时钟时刻
+		for(var i=0;i<12;i++){
+			oGc.moveTo(195,240);
+			oGc.arc(195,240,70,i*30*Math.PI/180,(i+1)*30*Math.PI/180,false);
+			
+		}
+		oGc.closePath();
+		oGc.stroke();
+
+		oGc.fillStyle="#fcf"; 
+		oGc.beginPath();
+			oGc.moveTo(195,240);
+			oGc.arc(195,240,50,0,360*Math.PI/180,false);
+		oGc.closePath();
+		oGc.fill();
+
+		oGc.fillStyle="#000"; 
+		oGc.beginPath();
+			oGc.moveTo(195,240);
+			oGc.arc(195,240,2,0,360*Math.PI/180,false);
+		oGc.closePath();
+		oGc.fill();
+
+		oGc.strokeStyle="red";//秒钟
+		oGc.beginPath();
+			oGc.moveTo(195,240);
+			oGc.arc(195,240,50,(-90+second*6)*Math.PI/180,(-90+second*6)*Math.PI/180,false);
+		oGc.closePath();
+		oGc.stroke();
+
+		oGc.strokeStyle="blue";//分钟
+		//oGc.lineWidth="20";
+		oGc.beginPath();
+			oGc.moveTo(195,240);
+			oGc.arc(195,240,40,(-90+minute*6)*Math.PI/180,(-90+minute*6)*Math.PI/180,false);
+		oGc.closePath();
+		oGc.stroke();
+
+		oGc.strokeStyle="#000";//时钟
+		oGc.beginPath();
+			oGc.moveTo(195,240);
+			oGc.arc(195,240,20,(-90+hour*30+minute*0.5)*Math.PI/180,(-90+hour*30+minute*0.5)*Math.PI/180,false);
+		oGc.closePath();
+		oGc.stroke();
+	}
+	
+	
+	setInterval(function(){
+		toDraw();
+	},1000);
+	
+}
+</script>
+</head>
+<body>
+	<canvas id="box" width="400" height="400"></canvas>
+</body>
+</html>
